@@ -5,7 +5,7 @@ import FAQ from './FAQ'
 
 const Home = () => {
   return (
-    <div className=''>
+    <div className='dark:bg-[#111827]'>
       <ImageUpload/>
       <How/>
       <FAQ/>

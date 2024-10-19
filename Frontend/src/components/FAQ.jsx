@@ -17,7 +17,7 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="max-w-xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md">
+    <div className="max-w-[70%] w-[100%] mx-auto dark:bg-[#111827] text-black dark:text-white  p-8 shadow-md">
       <h2 className="text-2xl font-semibold mb-6">Frequently Asked Questions</h2>
       {faqs.map((faq, index) => (
         <div key={index} className="border-b border-gray-300">
