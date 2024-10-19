@@ -30,7 +30,8 @@ const Navbar = () => {
   }, [darkMode]);
 
   return (
-    <nav className="bg-white shadow-md p-4 dark:bg-gray-800">
+    <div className='absolute'>
+    <nav className=" fixed w-[100%] bg-white shadow-md p-4 dark:bg-gray-800">
       <div className="container mx-auto flex justify-between items-center">
         {/* Left: Logo */}
         <div className="flex items-center">
@@ -77,6 +78,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && <MobileMenu toggleDropdown={toggleDropdown} dropdownOpen={dropdownOpen} />}
     </nav>
+    </div>
   );
 };
 
