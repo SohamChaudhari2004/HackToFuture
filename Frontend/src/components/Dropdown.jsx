@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Dropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div 
+    <div
       className="relative inline-block"
-      onMouseEnter={() => setDropdownOpen(true)}  // Show dropdown on mouse enter
-      onMouseLeave={() => setDropdownOpen(false)} // Hide dropdown when mouse leaves
+      ref={dropdownRef}
+      onMouseEnter={() => setDropdownOpen(true)}  // Show dropdown on mouse enter (button)
+      onMouseLeave={() => setDropdownOpen(false)} // Hide dropdown when mouse leaves (button or dropdown)
     >
-      <button className="text-gray-700 hover:text-black flex items-center">
+      <button 
+        className="text-gray-700 hover:text-black flex items-center"
+        onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle on click as well
+      >
         MORE TOOLS
         <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
@@ -17,11 +36,10 @@ const Dropdown = () => {
       </button>
 
       {dropdownOpen && (
-        <div 
-          className="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-gray-300 shadow-lg rounded-lg w-[800px] h-[200px] z-50" // Increased width to 1000px
-          onMouseEnter={() => setDropdownOpen(true)} // Keep dropdown open when hovering over the dropdown
-          onMouseLeave={() => setDropdownOpen(false)} // Hide dropdown when mouse leaves
-          onFocus={() => setDropdownOpen(true)}
+        <div
+          className="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-gray-300 shadow-lg rounded-lg w-[800px] h-[200px] z-50"
+          onMouseEnter={() => setDropdownOpen(true)}  // Keep open when hovering over the dropdown
+          onMouseLeave={() => setDropdownOpen(false)} // Hide when mouse leaves the dropdown area
         >
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6 text-center py-8 px-8">
             
